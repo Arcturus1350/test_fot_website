@@ -1,0 +1,70 @@
+body {
+    background: url('1.png') no-repeat center center fixed;
+    background-size: cover;
+    font-family: Arial, sans-serif;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 500px;
+    margin: 80px auto;
+    background: rgba(255,255,255,0.85);
+    border-radius: 18px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+    padding: 40px 32px 32px 32px;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+h1 {
+    font-size: 2.4em;
+    margin-bottom: 0.3em;
+    color: #2d3a4b;
+}
+
+h2 {
+    font-size: 1.3em;
+    font-weight: 400;
+    color: #4e5d6c;
+    margin-bottom: 1.2em;
+}
+
+p {
+    color: #555;
+    font-size: 1.1em;
+    margin-bottom: 2em;
+}
+
+#join-btn {
+    background: linear-gradient(90deg, #4f8cff, #38cfa6);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 12px 32px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+#join-btn:hover {
+    background: linear-gradient(90deg, #38cfa6, #4f8cff);
+}
+
+.snowflake {
+    position: fixed;
+    top: 0;
+    z-index: 0;
+    color: #fff;
+    pointer-events: none;
+    user-select: none;
+    animation: fall linear forwards;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(100vh);
+        opacity: 0.7;
+    }
+} 
