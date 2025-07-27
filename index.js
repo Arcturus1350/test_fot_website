@@ -1,7 +1,6 @@
 window.onload = function() {
-    alert('AI训练营 Arcturus1350！');
-    document.getElementById('join-btn').onclick = function() {
-        alert('感谢你的关注，敬请期待更多精彩内容！');
+    document.getElementById('tomato-btn').onclick = function() {
+        window.location.href = './tomato/';
     };
 };
 

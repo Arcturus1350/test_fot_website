@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>番茄时钟 - 专注工作，高效生活</title>
+    <link rel="icon" type="image/x-icon" href="qwq.ico">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 左侧时钟主体 -->
+    <div class="container" id="leftContainer">
+        <div class="clock-section">
+            <!-- 状态显示 -->
+            <div class="status-display">
+                <h1 id="currentStatus">工作时间</h1>
+                <p id="currentTask" class="hitokoto-box">点击获取今日一言</p>
+                <div class="cycle-info">
+                    <span>第 <span id="currentCycle">1</span> 个番茄</span>
+                    <span>今日已完成: <span id="todayCount">0</span> 🍅</span>
+                </div>
+            </div>
+
+            <!-- 进度环和时间显示 -->
+            <div class="timer-container">
+                <svg class="progress-ring" width="280" height="280">
+                    <circle class="progress-ring-background" 
+                            cx="140" cy="140" r="120" 
+                            stroke-width="12" 
+                            fill="transparent"/>
+                    <circle class="progress-ring-progress" 
+                            cx="140" cy="140" r="120" 
+                            stroke-width="12" 
+                            fill="transparent"
+                            id="progressCircle"/>
+                </svg>
+                <div class="timer-display">
+                    <div class="time-text" id="timeDisplay">25:00</div>
+                    <div class="phase-text" id="phaseDisplay">准备开始</div>
+                </div>
+            </div>
+
+            <!-- 控制按钮 -->
+            <div class="controls">
+                <button class="btn btn-primary" id="startPauseBtn">开始</button>
+                <button class="btn btn-secondary" id="resetBtn">重置</button>
+                <button class="btn btn-secondary" id="skipBtn">跳过</button>
+            </div>
+
+
+        </div>
+    </div>
+
+    <!-- 右侧引导栏 -->
+    <div class="container" id="rightContainer">
+        <div class="sidebar">
+            <!-- 导航标签 -->
+            <div class="nav-tabs">
+                <button class="tab-btn active" data-tab="tasks">📝 任务</button>
+                <button class="tab-btn" data-tab="stats">📊 统计</button>
+                <button class="tab-btn" data-tab="settings">⚙️ 设置</button>
+            </div>
+
+            <!-- 任务管理面板 -->
+            <div class="tab-content active" id="tasksTab">
+                <div class="tab-header">
+                    <h3>任务管理</h3>
+                </div>
+                <div class="task-input">
+                    <input type="text" id="newTaskInput" placeholder="添加新任务..." maxlength="50">
+                    <button class="btn btn-primary" id="addTaskBtn">添加</button>
+                    <button class="btn btn-secondary" id="advancedTaskBtn">高级</button>
+                </div>
+                <div class="task-list" id="taskList">
+                    <!-- 任务项将动态添加 -->
+                </div>
+            </div>
+
+            <!-- 统计面板 -->
+            <div class="tab-content" id="statsTab">
+                <div class="tab-header">
+                    <h3>工作统计</h3>
+                </div>
+                <div class="stats-summary">
+                    <div class="stat-item">
+                        <div class="stat-value" id="totalTomatoes">0</div>
+                        <div class="stat-label">总番茄数</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="totalTime">0h</div>
+                        <div class="stat-label">总工作时间</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="avgDaily">0</div>
+                        <div class="stat-label">日均番茄</div>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <h4>最近7天</h4>
+                    <div class="chart" id="weeklyChart">
+                        <!-- 图表将动态生成 -->
+                    </div>
+                </div>
+                <div class="data-management">
+                    <h4>数据管理</h4>
+                    <div class="data-buttons">
+                        <button class="btn btn-secondary" id="exportDataBtn">📤 导出数据</button>
+                        <button class="btn btn-secondary" id="importDataBtn">📥 导入数据</button>
+                        <button class="btn btn-secondary" id="resetDataBtn">🔄 重置数据</button>
+                    </div>
+                    <input type="file" id="importFileInput" accept=".json" style="display: none;">
+                </div>
+            </div>
+
+            <!-- 设置面板 -->
+            <div class="tab-content" id="settingsTab">
+                <div class="tab-header">
+                    <h3>个性化设置</h3>
+                </div>
+                <div class="settings-group">
+                    <h4>时间设置</h4>
+                    <div class="setting-item">
+                        <label>工作时间 (分钟)</label>
+                        <div class="time-setting">
+                                                    <input type="range" id="workTimeSlider" min="1" max="60" value="25">
+                        <input type="number" id="workTimeInput" class="time-input" min="1" max="60" value="25">
+                        </div>
+                    </div>
+                    <div class="setting-item">
+                        <label>短休息 (分钟)</label>
+                        <div class="time-setting">
+                                                    <input type="range" id="shortBreakSlider" min="1" max="10" value="5">
+                        <input type="number" id="shortBreakInput" class="time-input" min="1" max="10" value="5">
+                        </div>
+                    </div>
+                    <div class="setting-item">
+                        <label>长休息 (分钟)</label>
+                        <div class="time-setting">
+                                                    <input type="range" id="longBreakSlider" min="1" max="30" value="15">
+                        <input type="number" id="longBreakInput" class="time-input" min="1" max="30" value="15">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="settings-group">
+                    <h4>界面透明度</h4>
+                    <div class="setting-item">
+                        <label>面板透明度</label>
+                        <div class="time-setting">
+                            <input type="range" id="opacitySlider" min="0.1" max="1" step="0.1" value="0.9">
+                            <span id="opacityValue">90%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="settings-group">
+                    <h4>音频设置</h4>
+                    <div class="setting-item">
+                        <label>音量</label>
+                        <div class="time-setting">
+                            <input type="range" id="volumeSlider" min="0" max="100" value="50">
+                            <button class="btn btn-small" id="testSoundBtn">测试</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="settings-group">
+                    <h4>其他设置</h4>
+                    <div class="setting-item">
+                        <label>自动开始下一阶段</label>
+                        <label class="switch">
+                            <input type="checkbox" id="autoStartCheckbox">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <label>深色模式</label>
+                        <label class="switch">
+                            <input type="checkbox" id="darkModeCheckbox">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 任务切换确认对话框 -->
+    <div id="confirmModal" class="modal">
+        <div class="modal-content confirm-dialog">
+            <div class="modal-header">
+                <h3>⚠️ 确认任务切换</h3>
+            </div>
+            <div class="modal-body">
+                <div class="confirm-message" id="confirmMessage">
+                    <!-- 确认消息将动态设置 -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="confirmCancel">取消</button>
+                <button class="btn btn-primary" id="confirmOk">确认</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 删除任务确认对话框 -->
+    <div id="deleteModal" class="modal">
+        <div class="modal-content confirm-dialog">
+            <div class="modal-header">
+                <h3>🗑️ 删除任务</h3>
+            </div>
+            <div class="modal-body">
+                <div class="confirm-message" id="deleteMessage">
+                    <!-- 删除确认消息将动态设置 -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="deleteCancel">取消</button>
+                <button class="btn btn-danger" id="deleteConfirm">删除</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 高级任务设置弹窗 -->
+    <div id="advancedTaskModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>高级任务设置</h3>
+                <span class="modal-close" id="modalClose">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>任务名称</label>
+                    <input type="text" id="advancedTaskName" placeholder="输入任务名称..." maxlength="50">
+                </div>
+                
+                <div class="form-group">
+                    <label>时间安排 <small style="color: var(--text-secondary);">（自定义工作和休息的时间序列）</small></label>
+                    <div class="time-sequence" id="timeSequence">
+                        <!-- 时间段将动态添加 -->
+                    </div>
+                    <div class="sequence-controls">
+                        <button class="btn btn-small" id="addWorkTime">+ 工作时间</button>
+                        <button class="btn btn-small" id="addBreakTime">+ 休息时间</button>
+                    </div>
+                </div>
+                
+                <div class="total-time">
+                    <span>总时长：<span id="totalDuration">0分钟</span></span>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="cancelModal">取消</button>
+                <button class="btn btn-primary" id="saveAdvancedTask">保存任务</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 

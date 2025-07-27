@@ -38,8 +38,8 @@ p {
     margin-bottom: 2em;
 }
 
-#join-btn {
-    background: linear-gradient(90deg, #4f8cff, #38cfa6);
+#tomato-btn {
+    background: linear-gradient(90deg, #ff6b6b, #ff8e53);
     color: #fff;
     border: none;
     border-radius: 6px;
@@ -48,8 +48,8 @@ p {
     cursor: pointer;
     transition: background 0.2s;
 }
-#join-btn:hover {
-    background: linear-gradient(90deg, #38cfa6, #4f8cff);
+#tomato-btn:hover {
+    background: linear-gradient(90deg, #ff8e53, #ff6b6b);
 }
 
 .snowflake {
