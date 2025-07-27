@@ -1,4 +1,15 @@
 window.onload = function() {
+    // 抽奖活动按钮
+    document.getElementById('lucky-btn').onclick = function() {
+        window.location.href = './lucky/';
+    };
+    
+    // 任务管理按钮
+    document.getElementById('task-btn').onclick = function() {
+        window.location.href = './task/';
+    };
+    
+    // 番茄时钟按钮
     document.getElementById('tomato-btn').onclick = function() {
         window.location.href = './tomato/';
     };
