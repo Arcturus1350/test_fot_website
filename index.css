@@ -1,5 +1,7 @@
 body {
-    background: url('1.png') no-repeat center center fixed;
+    /* 添加渐变背景作为回退方案 */
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: url('https://gss0.baidu.com/9fo3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/86d6277f9e2f07088ab175d0e524b899a801f2ae.jpg') no-repeat center center fixed;
     background-size: cover;
     font-family: Arial, sans-serif;
     color: #333;

@@ -1,4 +1,5 @@
-window.onload = function() {
+// 使用DOMContentLoaded事件，不需要等待图片加载完成
+document.addEventListener('DOMContentLoaded', function() {
     // 抽奖活动按钮
     document.getElementById('lucky-btn').onclick = function() {
         window.location.href = './lucky/';
@@ -13,7 +14,7 @@ window.onload = function() {
     document.getElementById('tomato-btn').onclick = function() {
         window.location.href = './tomato/';
     };
-};
+});
 
 // 全屏雪花特效
 function createSnowFlake() {
